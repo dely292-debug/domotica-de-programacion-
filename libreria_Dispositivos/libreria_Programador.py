@@ -3,14 +3,19 @@ from typing import List, Dict, Tuple, Any
 
 
 class Programador:
-    # Mapa de tm_wday a nombres de día
+    """
+    Simula la clase Programador para agendar acciones de ON/OFF
+    para cualquier Dispositivo (Bombilla o Aire).
+    """
     _DIAS_SEMANA_MAP = {
         0: "Lunes", 1: "Martes", 2: "Miércoles", 3: "Jueves",
         4: "Viernes", 5: "Sábado", 6: "Domingo"
     }
-    def __init__(self, dispositivo_objetivo: Any):  # Acepta Bombilla o Aire
-        # Atributos según UML, usando un nombre genérico
+
+    def __init__(self, dispositivo_objetivo: Any):
+        # Almacena el objeto Bombilla o Aire al que debe programar
         self.dispositivo_objetivo = dispositivo_objetivo
+        # (Dia, Hora, Minuto, Segundo): Accion ('ON' o 'OFF')
         self.listaProgramacion: Dict[Tuple[str, int, int, int], str] = {}
 
     @staticmethod
@@ -31,37 +36,35 @@ class Programador:
         hora = f"{lt.tm_hour:02d}:{lt.tm_min:02d}:{lt.tm_sec:02d}"
         return f"{dia} {hora}"
 
-    # ... (métodos comienzo, fin, borrar, mostrar_programacion se mantienen igual,
-    # usando self.dispositivo_objetivo en lugar de self.bombilla) ...
-        # --- Métodos de Programación ---
-
     def comienzo(self, diaSemana: str, hora: int, min: int, seg: int):
-        """Programa el encendido (ON) del dispositivo (bombilla)."""
+        """Programa el encendido (ON) del dispositivo."""
         dia_semana_normalizado = diaSemana.capitalize()
         if dia_semana_normalizado not in Programador.getDiasSemana():
-            print(f" Error: Día '{diaSemana}' no válido. Días válidos: {Programador.getDiasSemana()}")
+            print(f" Error: Día '{diaSemana}' no válido.")
             return
         if not self._validar_tiempo(hora, min, seg):
-            print(" Error: Hora, minuto o segundo fuera de rango (HH:0-23, MM/SS:0-59).")
+            print(" Error: Hora, minuto o segundo fuera de rango.")
             return
         clave = (dia_semana_normalizado, hora, min, seg)
         self.listaProgramacion[clave] = 'ON'
         tiempo_str = f"{hora:02d}:{min:02d}:{seg:02d}"
-        print(f" Programación añadida: '{self.dispositivo_objetivo}' ON el {dia_semana_normalizado} a las {tiempo_str}.")
+        print(
+            f" Programación añadida: '{self.dispositivo_objetivo}' ON el {dia_semana_normalizado} a las {tiempo_str}.")
 
     def fin(self, diaSemana: str, hora: int, min: int, seg: int):
-        """Programa el apagado (OFF) del dispositivo (bombilla)."""
+        """Programa el apagado (OFF) del dispositivo."""
         dia_semana_normalizado = diaSemana.capitalize()
         if dia_semana_normalizado not in Programador.getDiasSemana():
-            print(f"Error: Día '{diaSemana}' no válido. Días válidos: {Programador.getDiasSemana()}")
+            print(f"Error: Día '{diaSemana}' no válido.")
             return
         if not self._validar_tiempo(hora, min, seg):
-            print("Error: Hora, minuto o segundo fuera de rango (HH:0-23, MM/SS:0-59).")
+            print("Error: Hora, minuto o segundo fuera de rango.")
             return
         clave = (dia_semana_normalizado, hora, min, seg)
         self.listaProgramacion[clave] = 'OFF'
         tiempo_str = f"{hora:02d}:{min:02d}:{seg:02d}"
-        print(f"Programación añadida: '{self.dispositivo_objetivo}' OFF el {dia_semana_normalizado} a las {tiempo_str}.")
+        print(
+            f"Programación añadida: '{self.dispositivo_objetivo}' OFF el {dia_semana_normalizado} a las {tiempo_str}.")
 
     def borrar(self, diaSemana: str, hora: int, min: int, seg: int):
         """Borra una programación específica."""
@@ -79,19 +82,14 @@ class Programador:
             print(f"No hay programaciones activas para '{self.dispositivo_objetivo}'.")
             return
         print(f"\n--- Programación de '{self.dispositivo_objetivo}' ---")
-        # Ordenar por día y luego por hora
         for (dia, h, m, s), accion in sorted(self.listaProgramacion.items()):
             tiempo_str = f"{h:02d}:{m:02d}:{s:02d}"
             print(f"- {dia} {tiempo_str}: {accion}")
-
-
-    # --- Metodo de Ejecución ---
 
     def ejecutar_programacion(self):
         """Comprueba la hora actual y ejecuta la acción si coincide."""
         lt = time.localtime()
         dia_actual = Programador._DIAS_SEMANA_MAP.get(lt.tm_wday)
-
         clave_actual = (dia_actual, lt.tm_hour, lt.tm_min, lt.tm_sec)
 
         if clave_actual in self.listaProgramacion:
@@ -99,7 +97,6 @@ class Programador:
             tiempo_str = f"{lt.tm_hour:02d}:{lt.tm_min:02d}:{lt.tm_sec:02d}"
             print(f"\n[PROGRAMADOR] ¡Hora de acción! {clave_actual[0]} {tiempo_str} -> {accion}")
 
-            # Llama al metodo del dispositivo, sin importar si es Bombilla o Aire
             if accion == 'ON':
                 self.dispositivo_objetivo.encender()
             elif accion == 'OFF':
