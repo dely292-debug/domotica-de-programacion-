@@ -1,7 +1,6 @@
 from typing import  Dict, Any
 class Aire:
      _contador_aires = 0
-     _contador_aires = 0
      UMBRAL_MAX = 60
      UMBRAL_MIN = -20
      def __init__(self, nombre_aire : str , estado : bool = True, temperatura : int = 22) :
