@@ -30,7 +30,7 @@ def cargar_habitaciones() -> List[Habitacion]:
             print(f"\n Error al cargar los datos. Se iniciará con una lista vacía: {e}")
             return []
     else:
-        print("\nℹ️ No se encontró archivo de datos. Iniciando con lista de habitaciones vacía.")
+        print("\nNo se encontró archivo de datos. Iniciando con lista de habitaciones vacía.")
         return []
 
 
@@ -187,18 +187,18 @@ def gestionar_estado_dispositivo(lista_habitaciones):
                 paso = int(input(f"Introduce el paso para aumentar ({paso}): ") or paso)
                 dispositivo_obj.aumentarIntensidad(paso)
             except ValueError as e:  # Captura el error de umbral (Refactorización c)
-                print(f"⚠️ Operación fallida: {e}")
+                print(f" Operación fallida: {e}")
             except Exception as e:
-                print(f"⚠️ Error de entrada: {e}")
+                print(f"Error de entrada: {e}")
         elif opcion == 'd':
             paso = 10 if isinstance(dispositivo_obj, Bombilla) else 1
             try:
                 paso = int(input(f"Introduce el paso para disminuir ({paso}): ") or paso)
                 dispositivo_obj.disminuirIntensidad(paso)
             except ValueError as e:  # Captura el error de umbral (Refactorización c)
-                print(f"⚠️ Operación fallida: {e}")
+                print(f" Operación fallida: {e}")
             except Exception as e:
-                print(f"⚠️ Error de entrada: {e}")
+                print(f" Error de entrada: {e}")
         elif opcion == 'e' and isinstance(dispositivo_obj, Bombilla):
             try:
                 print("\n--- Ajuste de Color RGB ---")
@@ -207,9 +207,9 @@ def gestionar_estado_dispositivo(lista_habitaciones):
                 b = int(input("Introduce el valor de B (0-255): "))
                 dispositivo_obj.set_color(r, g, b)
             except ValueError as e:
-                print(f"⚠️ Error de entrada: {e}. Asegúrese de usar números enteros entre 0 y 255.")
+                print(f" Error de entrada: {e}. Asegúrese de usar números enteros entre 0 y 255.")
             except Exception as e:
-                print(f"⚠️ Error general: {e}")
+                print(f" Error general: {e}")
         else:
             print("Opción no válida para este dispositivo.")
 
