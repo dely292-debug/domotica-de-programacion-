@@ -1,6 +1,9 @@
 
+
 from typing import Dict, Any
 from libreria_Dispositivos.libreria_Programador import Programador
+
+
 class Dispositivo:
     """
     Clase base para todos los dispositivos controlables (Bombilla, Aire, etc.).
@@ -8,7 +11,7 @@ class Dispositivo:
     """
     _contador_dispositivos = 0
 
-    def __init__(self, nombre: str, estado: bool = True, nivel_inicial: int = 0):
+    def __init__(self, nombre, estado=False, nivel_inicial=0):
         Dispositivo._contador_dispositivos += 1
         self._id = f"dispositivo{Dispositivo._contador_dispositivos}"
         self._nombre = nombre

@@ -2,6 +2,7 @@ from libreria_Dispositivos.libreria_Habitaciones import Habitacion
 from libreria_Dispositivos.libreria_Aire_Acondicionado import Aire
 from libreria_Dispositivos.libreria_Bombillas import Bombilla
 from libreria_Dispositivos.libreria_Programador import Programador
+from libreria_Dispositivos.libreria_Dispositivo import Dispositivo
 import pickle
 import os
 from typing import Tuple, List, Dict, Any

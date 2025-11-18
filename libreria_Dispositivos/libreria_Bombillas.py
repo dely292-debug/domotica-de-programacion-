@@ -1,11 +1,11 @@
-
+from libreria_Dispositivos.libreria_Dispositivo import Dispositivo
 from typing import Tuple,Dict, Any
 """
  Clase que representa una bombilla con estado (encendida/apagada),
  nivel de intensidad (0-100) y color RGB (tupla de 3 enteros 0-255).
 """
 
-class Bombilla:
+class Bombilla(Dispositivo):
     _contador_bombillas = 0
     UMBRAL_MAX = 100
     UMBRAL_MIN = 0
@@ -14,6 +14,7 @@ class Bombilla:
         Bombilla._contador_bombillas += 1
         # Llama al constructor de la clase base, usando intensidad como nivel principal
         super().__init__(nombre_bombilla, estado, nivel_intensidad)
+        self.tipo_dispositivo = "Bombilla"
         self._id = f"bombilla{Bombilla._contador_bombillas}"# Sobrescribe el ID de la base
         self._color = color
    # Sobrescribe los métodos de control de intensidad

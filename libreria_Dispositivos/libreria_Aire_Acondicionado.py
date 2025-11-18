@@ -1,5 +1,6 @@
+from libreria_Dispositivos.libreria_Dispositivo import Dispositivo
 from typing import  Dict, Any
-class Aire:
+class Aire(Dispositivo):
      _contador_aires = 0
      UMBRAL_MAX = 60
      UMBRAL_MIN = -20
