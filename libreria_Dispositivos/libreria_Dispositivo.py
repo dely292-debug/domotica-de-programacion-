@@ -18,7 +18,7 @@ class Dispositivo:
         self._estado = estado
         # Este atributo será usado por las subclases para intensidad o temperatura
         self._nivel_principal = nivel_inicial
-        self._programador: Programador = None
+        self._programador: Programador=None
 
     def __str__(self) -> str:
         return f"{self._nombre} ({self._id})"
@@ -48,7 +48,7 @@ class Dispositivo:
         raise NotImplementedError("El método obtener_estado debe ser implementado en la subclase.")
 
     # Funcionalidad del Programador
-    def asignar_programador(self) -> Programador:
+    def asignar_programador(self):
         """Asigna o actualiza un objeto Programador a este dispositivo."""
         if self._programador is None:
             self._programador = Programador(self)

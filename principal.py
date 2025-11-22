@@ -2,10 +2,9 @@ from libreria_Dispositivos.libreria_Habitaciones import Habitacion
 from libreria_Dispositivos.libreria_Aire_Acondicionado import Aire
 from libreria_Dispositivos.libreria_Bombillas import Bombilla
 from libreria_Dispositivos.libreria_Programador import Programador
-from libreria_Dispositivos.libreria_Dispositivo import Dispositivo
 import pickle
 import os
-from typing import Tuple, List, Dict, Any
+from typing import  List
 NOMBRE_ARCHIVO_DATOS = 'habitaciones_data.pkl'
 
 def guardar_habitaciones(lista_habitaciones: List[Habitacion]):
@@ -19,12 +18,14 @@ def guardar_habitaciones(lista_habitaciones: List[Habitacion]):
         print(f"\n Error al guardar los datos: {e}")
 
 
-def cargar_habitaciones() -> List[Habitacion]:
+def cargar_habitaciones():
     """Carga la lista de habitaciones desde un archivo usando pickle."""
     if os.path.exists(NOMBRE_ARCHIVO_DATOS):
         try:
             with open(NOMBRE_ARCHIVO_DATOS, 'rb') as f:
                 lista_habitaciones = pickle.load(f)
+            if lista_habitaciones:
+                print(f"\n Lista de habitaciones cargada con éxito.")
             print(f"\n Datos cargados de '{NOMBRE_ARCHIVO_DATOS}' con {len(lista_habitaciones)} habitaciones.")
             return lista_habitaciones
         except Exception as e:
@@ -47,8 +48,9 @@ def mostrar_menu():
     print("5. Listar todas las habitaciones")
     print("6. Mostrar dispositivos por habitaciones")
     print("7. Gestionar Programador (Bombilla/Aire)")
-    print("8. **Gestionar Estado y Nivel (INTENSIDAD/TEMP)**")  # Nuevo punto de gestión
-    print("9. Salir (Guardar Datos)")
+    print("8. Gestionar Estado y Nivel (INTENSIDAD/TEMP)")  # Nuevo punto de gestión
+    print("9. Recargar habitaciones guardadas ")
+    print("10. Salir (Guardar Datos)")
 
 
 def seleccionar_habitacion(lista_habitaciones, accion="gestionar"):
@@ -185,7 +187,7 @@ def gestionar_estado_dispositivo(lista_habitaciones):
         elif opcion == 'c':
             paso = 10 if isinstance(dispositivo_obj, Bombilla) else 1
             try:
-                paso = int(input(f"Introduce el paso para aumentar ({paso}): ") or paso)
+                paso = int(input(f"Introduce el valor para aumentar ({paso}): ") or paso)
                 dispositivo_obj.aumentarIntensidad(paso)
             except ValueError as e:  # Captura el error de umbral (Refactorización c)
                 print(f" Operación fallida: {e}")
@@ -194,7 +196,7 @@ def gestionar_estado_dispositivo(lista_habitaciones):
         elif opcion == 'd':
             paso = 10 if isinstance(dispositivo_obj, Bombilla) else 1
             try:
-                paso = int(input(f"Introduce el paso para disminuir ({paso}): ") or paso)
+                paso = int(input(f"Introduce el valor para disminuir ({paso}): ") or paso)
                 dispositivo_obj.disminuirIntensidad(paso)
             except ValueError as e:  # Captura el error de umbral (Refactorización c)
                 print(f" Operación fallida: {e}")
@@ -377,6 +379,8 @@ def menu():
         elif opcion == '8':
             gestionar_estado_dispositivo(lista_habitaciones)  # Refactorización c
         elif opcion == '9':
+            lista_habitaciones=cargar_habitaciones()  # recarga  habitaciones guardadas
+        elif opcion == '10':
             guardar_habitaciones(lista_habitaciones)  # Guardar datos al salir (HU04)
             print("\n ¡Gracias por usar el sistema de gestión de habitaciones! Saliendo...")
             condicionmenu = False
