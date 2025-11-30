@@ -18,18 +18,22 @@ class Bombilla(Dispositivo):
         self._id = f"bombilla{Bombilla._contador_bombillas}"# Sobrescribe el ID de la base
         self._color = color
    # Sobrescribe los métodos de control de intensidad
-    def aumentarIntensidad(self, paso: int = 10):
+    def aumentarIntensidad(self, paso: int = 0):
         """Aumenta la intensidad. Lanza ValueError si supera el umbral."""
-        nuevo_nivel = self._nivel_principal + paso
+        # Si el valor de paso es 0 (valor por defecto abstracto), se usa 10
+        paso_efectivo = paso if paso != 0 else 10
+        nuevo_nivel = self._nivel_principal + paso_efectivo
         if nuevo_nivel > self.UMBRAL_MAX:
             raise ValueError(
                 f"Error: La intensidad de la bombilla no puede superar {self.UMBRAL_MAX}. Intento: {nuevo_nivel}")
         self._nivel_principal = nuevo_nivel
         print(f"Intensidad de '{self._nombre}' aumentada a {self._nivel_principal}.")
 
-    def disminuirIntensidad(self, paso: int = 10):
+    def disminuirIntensidad(self, paso: int = 0):
         """Disminuye la intensidad. Lanza ValueError si supera el umbral."""
-        nuevo_nivel = self._nivel_principal - paso
+        # Si el valor de paso es 0 (valor por defecto abstracto), se usa 10
+        paso_efectivo = paso if paso != 0 else 10
+        nuevo_nivel = self._nivel_principal - paso_efectivo
         if nuevo_nivel < self.UMBRAL_MIN:
             raise ValueError(
                 f"Error: La intensidad de la bombilla no puede ser inferior a {self.UMBRAL_MIN}. Intento: {nuevo_nivel}")

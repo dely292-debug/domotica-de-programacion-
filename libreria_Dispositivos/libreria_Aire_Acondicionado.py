@@ -11,19 +11,23 @@ class Aire(Dispositivo):
          super().__init__(nombre_aire, estado, temperatura)
          self._id = f"aire{Aire._contador_aires}"  # Sobrescribe el ID de la base
 
-     # Sobrescribe los métodos de control de intensidad/temperatura (Refactorización b)
+     # Sobrescribe los métodos de control de intensidad/temperatura
      def aumentarIntensidad(self, paso: int = 1):
          """Aumenta la temperatura (Intensidad en el contexto de la base). Lanza ValueError si supera el umbral."""
-         nuevo_nivel = self._nivel_principal + paso
+         # Si el valor de paso es 0 (valor por defecto abstracto), se usa 1
+         paso_efectivo = paso if paso != 0 else 1
+         nuevo_nivel = self._nivel_principal + paso_efectivo
          if nuevo_nivel > self.UMBRAL_MAX:
              raise ValueError(
                  f"Error: La temperatura del aire no puede superar {self.UMBRAL_MAX}ºC. Intento: {nuevo_nivel}")
          self._nivel_principal = nuevo_nivel
          print(f"Temperatura de '{self._nombre}' ajustada a {self._nivel_principal} ºC.")
 
-     def disminuirIntensidad(self, paso: int = 1):
+     def disminuirIntensidad(self, paso: int = 0):
          """Disminuye la temperatura (Intensidad en el contexto de la base). Lanza ValueError si supera el umbral."""
-         nuevo_nivel = self._nivel_principal - paso
+         # Si el valor de paso es 0 (valor por defecto abstracto), se usa 1
+         paso_efectivo = paso if paso != 0 else 1
+         nuevo_nivel = self._nivel_principal - paso_efectivo
          if nuevo_nivel < self.UMBRAL_MIN:
              raise ValueError(
                  f"Error: La temperatura del aire no puede ser inferior a {self.UMBRAL_MIN}ºC. Intento: {nuevo_nivel}")

@@ -47,10 +47,10 @@ def mostrar_menu():
     print("4. Mostrar estado de habitación")
     print("5. Listar todas las habitaciones")
     print("6. Mostrar dispositivos por habitaciones")
-    print("7. Gestionar Programador (Bombilla/Aire)")
-    print("8. Gestionar Estado y Nivel (INTENSIDAD/TEMP)")  # Nuevo punto de gestión
-    print("9. Recargar habitaciones guardadas ")
-    print("10. Salir (Guardar Datos)")
+    print("8. Guardar Log Histórico de Habitación")
+    print("9. Gestionar Estado y Nivel (INTENSIDAD/TEMP)")
+    print("10. Recargar habitaciones guardadas ")
+    print("11. Salir (Guardar Datos)")
 
 
 def seleccionar_habitacion(lista_habitaciones, accion="gestionar"):
@@ -185,18 +185,22 @@ def gestionar_estado_dispositivo(lista_habitaciones):
         elif opcion == 'b':
             dispositivo_obj.apagar()
         elif opcion == 'c':
-            paso = 10 if isinstance(dispositivo_obj, Bombilla) else 1
+            # Valor por defecto 0 pasa a la subclase, donde se gestiona si es 10 o 1.
+            # Se permite la entrada manual.
+            paso_default = 10 if isinstance(dispositivo_obj, Bombilla) else 1
             try:
-                paso = int(input(f"Introduce el valor para aumentar ({paso}): ") or paso)
+                paso = int(input(f"Introduce el valor para aumentar (default: {paso_default}, 0 para usar default): ") or 0)
                 dispositivo_obj.aumentarIntensidad(paso)
             except ValueError as e:  # Captura el error de umbral (Refactorización c)
                 print(f" Operación fallida: {e}")
             except Exception as e:
                 print(f"Error de entrada: {e}")
         elif opcion == 'd':
-            paso = 10 if isinstance(dispositivo_obj, Bombilla) else 1
+            # Valor por defecto 0 pasa a la subclase, donde se gestiona si es 10 o 1.
+            # Se permite la entrada manual.
+            paso_default = 10 if isinstance(dispositivo_obj, Bombilla) else 1
             try:
-                paso = int(input(f"Introduce el valor para disminuir ({paso}): ") or paso)
+                paso = int(input(f"Introduce el valor para disminuir (default: {paso_default}, 0 para usar default): ") or 0)
                 dispositivo_obj.disminuirIntensidad(paso)
             except ValueError as e:  # Captura el error de umbral (Refactorización c)
                 print(f" Operación fallida: {e}")
@@ -351,6 +355,21 @@ def gestionar_programador(lista_habitaciones):
             except Exception as e:
                 print(f"Ocurrió un error: {e}")
 
+def guardar_log_habitacion(lista_habitaciones):
+    """Opción 8: Pide el nombre de la habitación y el fichero para guardar el log."""
+    habitacion_seleccionada = seleccionar_habitacion(lista_habitaciones, "guardar el log histórico")
+    if habitacion_seleccionada is None:
+        return
+
+    # Se usa un nombre de fichero predeterminado para simplificar
+    nombre_fichero = input("Ingrese el nombre del fichero para guardar el log (ej: log_domotica.txt): ")
+    if not nombre_fichero:
+        print("Nombre de fichero no puede estar vacío.")
+        return
+
+    # Llama al Metodo implementado de ILogHistorico
+    habitacion_seleccionada.guardaLog(nombre_fichero)
+
 
 def menu():
     """Función principal que ejecuta el menú."""
@@ -377,15 +396,17 @@ def menu():
         elif opcion == '7':
             gestionar_programador(lista_habitaciones)
         elif opcion == '8':
-            gestionar_estado_dispositivo(lista_habitaciones)  # Refactorización c
+            guardar_log_habitacion(lista_habitaciones)
         elif opcion == '9':
-            lista_habitaciones=cargar_habitaciones()  # recarga  habitaciones guardadas
+            gestionar_estado_dispositivo(lista_habitaciones)
         elif opcion == '10':
+            lista_habitaciones = cargar_habitaciones()  # recarga  habitaciones guardadas
+        elif opcion == '11':  # Opción 11 ahora es salir
             guardar_habitaciones(lista_habitaciones)  # Guardar datos al salir (HU04)
             print("\n ¡Gracias por usar el sistema de gestión de habitaciones! Saliendo...")
             condicionmenu = False
         else:
-            print(" Opción no válida. Por favor, ingrese un número del 1 al 9.")
+            print(" Opción no válida. Por favor, ingrese un número del 1 al 11.")
 
 
 if __name__ == "__main__":

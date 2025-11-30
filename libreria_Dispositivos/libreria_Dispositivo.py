@@ -1,10 +1,11 @@
 
 
 from typing import Dict, Any
+from abc import ABC, abstractmethod
 from libreria_Dispositivos.libreria_Programador import Programador
 
 
-class Dispositivo:
+class Dispositivo(ABC):
     """
     Clase base para todos los dispositivos controlables (Bombilla, Aire, etc.).
     Agrupa funcionalidades y atributos comunes.
@@ -34,18 +35,21 @@ class Dispositivo:
         self._estado = False
         print(f"Dispositivo '{self._nombre}' apagado.")
 
-    # Métodos de ajuste de intensidad (DEBEN ser implementados/gestionados por subclases)
-    def aumentarIntensidad(self, paso: int = 10):
+    # Métodos de ajuste de intensidad: AHORA SON ABSTRACTOS
+    @abstractmethod
+    def aumentarIntensidad(self, paso: int = 0):
         """Aumenta la intensidad del dispositivo. Debe ser implementado en subclases."""
-        raise NotImplementedError("El método aumentarIntensidad debe ser implementado en la subclase.")
+        pass
 
+    @abstractmethod
     def disminuirIntensidad(self, paso: int = 10):
         """Disminuye la intensidad del dispositivo. Debe ser implementado en subclases."""
-        raise NotImplementedError("El método disminuirIntensidad debe ser implementado en la subclase.")
+        pass
 
+    @abstractmethod
     def obtener_estado(self) -> Dict[str, Any]:
         """Retorna el estado completo del dispositivo."""
-        raise NotImplementedError("El método obtener_estado debe ser implementado en la subclase.")
+        pass
 
     # Funcionalidad del Programador
     def asignar_programador(self):

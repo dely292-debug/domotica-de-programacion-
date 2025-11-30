@@ -2,7 +2,10 @@
 from libreria_Dispositivos.libreria_Bombillas import Bombilla
 from libreria_Dispositivos.libreria_Aire_Acondicionado  import Aire
 from typing import List
-class Habitacion:
+from libreria_Dispositivos.libreria_Log_Historico import ILogHistorico
+import datetime
+
+class Habitacion(ILogHistorico): # Ahora hereda de ILogHistorico
     """Contenedor para dispositivos (Bombillas y Aires)."""
     def __init__(self, tipo_habitacion):
         self._tipo_habitacion = tipo_habitacion
@@ -62,3 +65,45 @@ class Habitacion:
                 a.obtener_estado()
         else:
             print("No hay Aires Acondicionados instalados.")
+
+    def guardaLog(self, fichero: str):
+        """
+        Almacena la fecha actual y el estado de todos los dispositivos
+        de la habitación en el fichero especificado.
+        """
+        try:
+            # Obtener la fecha y hora actual
+            fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            # Crear el contenido del log
+            contenido = f"\n*** LOG HISTÓRICO - {self._tipo_habitacion} ***\n"
+            contenido += f"FECHA/HORA: {fecha_actual}\n"
+            contenido += "-" * 50 + "\n"
+
+            # Recopilar estado de bombillas
+            if self._lista_bombillas:
+                contenido += f"Bombillas ({len(self._lista_bombillas)}):\n"
+                for b in self._lista_bombillas:
+                    estado = b.obtener_estado()
+                    contenido += f"  - {estado['nombre']} (ID: {b._id}): Estado={'ON' if estado['estado'] else 'OFF'}, Intensidad={estado['intensidad']}, Color={estado['color']}\n"
+            else:
+                contenido += "Bombillas: Ninguna instalada.\n"
+
+            # Recopilar estado de aires
+            if self._lista_aires:
+                contenido += f"\nAires Acondicionados ({len(self._lista_aires)}):\n"
+                for a in self._lista_aires:
+                    estado = a.obtener_estado()
+                    contenido += f"  - {estado['nombre']} (ID: {a._id}): Estado={'ON' if estado['estado'] else 'OFF'}, Temperatura={estado['temperatura']}ºC\n"
+            else:
+                contenido += "\nAires Acondicionados: Ninguno instalado.\n"
+
+            # Escribir en el fichero (modo 'a' para append)
+            with open(fichero, 'a') as f:
+                f.write(contenido)
+                f.write("-" * 50 + "\n")
+
+            print(f" [LOG] Estado de '{self._tipo_habitacion}' guardado con éxito en '{fichero}'.")
+
+        except Exception as e:
+            print(f" [LOG ERROR] Error al guardar el log de '{self._tipo_habitacion}': {e}")
