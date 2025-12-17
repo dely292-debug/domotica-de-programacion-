@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="paso 7">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controlador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/Vista.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/habitaciones_data.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/habitaciones_data.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/habitaciones_data.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/habitaciones_data.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log_Dormitorio.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log_Dormitorio.txt" afterDir="false" />
-    </list>
+    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="domotica 2" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,6 +20,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/dely292-debug/domotica-de-programacion-.git",
+    "accountId": "4a378ac3-c8bf-4133-8c1f-9a6361d91d1f"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -196,7 +194,31 @@
       <option name="project" value="LOCAL" />
       <updated>1765979788225</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="domotica">
+      <option name="closed" value="true" />
+      <created>1765992359539</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1765992359539</updated>
+    </task>
+    <task id="LOCAL-00013" summary="domotica">
+      <option name="closed" value="true" />
+      <created>1765992437878</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1765992437878</updated>
+    </task>
+    <task id="LOCAL-00014" summary="domotica 2">
+      <option name="closed" value="true" />
+      <created>1765992478343</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1765992478343</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -214,6 +236,8 @@
     <MESSAGE value="paso 2" />
     <MESSAGE value="paso 3" />
     <MESSAGE value="paso 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="paso 4" />
+    <MESSAGE value="domotica" />
+    <MESSAGE value="domotica 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="domotica 2" />
   </component>
 </project>
