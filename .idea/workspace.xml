@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="paso 2">
+    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="paso 3">
+      <change afterPath="$PROJECT_DIR$/App.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controlador.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Vista.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Aire_Acondicionado.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Aire_Acondicionado.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Bombillas.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Bombillas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Dispositivo.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Dispositivo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Log_Historico.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Log_Historico.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Programador.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Programador.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/principal.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,23 +37,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.libreria_Bombillas.executor&quot;: &quot;Run&quot;,
-    &quot;Python.libreria_Habitaciones.executor&quot;: &quot;Run&quot;,
-    &quot;Python.principal.executor&quot;: &quot;Run&quot;,
-    &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/UNIVERSIDAD 2025/PROGRAMACION/p1/PythonProject&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.App.executor": "Run",
+    "Python.Controlador.executor": "Run",
+    "Python.__init__.executor": "Run",
+    "Python.libreria_Bombillas.executor": "Run",
+    "Python.libreria_Habitaciones.executor": "Run",
+    "Python.principal.executor": "Run",
+    "Python.prueba.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/UNIVERSIDAD 2025/PROGRAMACION/p1/PythonProject",
+    "settings.editor.selected.configurable": "editor.preferences.inline.completion"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject" />
@@ -67,7 +66,7 @@
       <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject\.venv" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.principal">
+  <component name="RunManager">
     <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="OrientacionObjetos" />
       <option name="ENV_FILES" value="" />
@@ -90,33 +89,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="principal" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="OrientacionObjetos" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/libreria_Dispositivos" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject\principal.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.principal" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -197,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764506796852</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="paso 3">
+      <option name="closed" value="true" />
+      <created>1765972557666</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1765972557666</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -213,6 +193,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="paso 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="paso 2" />
+    <MESSAGE value="paso 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="paso 3" />
   </component>
 </project>
