@@ -4,12 +4,10 @@ from libreria_Dispositivos.libreria_Bombillas import Bombilla
 from libreria_Dispositivos.libreria_Programador import Programador
 import pickle
 import os
-from typing import  List
 NOMBRE_ARCHIVO_DATOS = 'habitaciones_data.pkl'
 
-def guardar_habitaciones(lista_habitaciones: List[Habitacion]):
+def guardar_habitaciones(lista_habitaciones):
     """Guarda la lista de habitaciones en un archivo usando pickle."""
-
     try:
         with open(NOMBRE_ARCHIVO_DATOS, 'wb') as f:
             pickle.dump(lista_habitaciones, f)
@@ -29,6 +27,7 @@ def cargar_habitaciones():
             print(f"\n Datos cargados de '{NOMBRE_ARCHIVO_DATOS}' con {len(lista_habitaciones)} habitaciones.")
             return lista_habitaciones
         except Exception as e:
+            # Si hay un error al cargar (ej. datos corruptos o cambios de clase)
             print(f"\n Error al cargar los datos. Se iniciará con una lista vacía: {e}")
             return []
     else:
@@ -47,6 +46,7 @@ def mostrar_menu():
     print("4. Mostrar estado de habitación")
     print("5. Listar todas las habitaciones")
     print("6. Mostrar dispositivos por habitaciones")
+    print("7. Gestionar Programador (Programar/Borrar eventos)")
     print("8. Guardar Log Histórico de Habitación")
     print("9. Gestionar Estado y Nivel (INTENSIDAD/TEMP)")
     print("10. Recargar habitaciones guardadas ")
@@ -54,7 +54,9 @@ def mostrar_menu():
 
 
 def seleccionar_habitacion(lista_habitaciones, accion="gestionar"):
-    """Función auxiliar para seleccionar una habitación existente."""
+    """
+    Función auxiliar para seleccionar una habitación existente.
+    """
     if not lista_habitaciones:
         print(" No hay habitaciones creadas. Por favor, cree una primero.")
         return None
@@ -62,24 +64,32 @@ def seleccionar_habitacion(lista_habitaciones, accion="gestionar"):
     for i, nombre_instancia in enumerate(lista_habitaciones):
         print(f"{i}.- {nombre_instancia._tipo_habitacion} ")
 
-    while True:
-        seleccion = input(f"\n Seleccione el número o nombre de la habitación a {accion}: ").strip()
+    habitacion_seleccionada = None
+    seleccion_valida = False
+
+    while not seleccion_valida:
+        seleccion = input(
+            f"\n Seleccione el número o nombre de la habitación a {accion} (o escriba 'cancelar'): ").strip()
+
+        if seleccion.lower() == 'cancelar':
+            return None
 
         if seleccion.isdigit():
             indice = int(seleccion)
             if 0 <= indice < len(lista_habitaciones):
-                return lista_habitaciones[indice]
+                habitacion_seleccionada = lista_habitaciones[indice]
+                seleccion_valida = True
             else:
                 print(f"Número de habitación no válido.El numero debe estar entre 0 y {len(lista_habitaciones) - 1}")
         else:
             habitacion_encontrada = next((h for h in lista_habitaciones if h._tipo_habitacion == seleccion), None)
             if habitacion_encontrada:
-                return habitacion_encontrada
+                habitacion_seleccionada = habitacion_encontrada
+                seleccion_valida = True
             else:
                 print(" Nombre o número de habitación no encontrado.")
 
-        if seleccion.lower() == 'cancelar':
-            return None
+    return habitacion_seleccionada
 
 
 def anadir_dispositivo(lista_habitaciones):
@@ -129,13 +139,21 @@ def seleccionar_dispositivo(habitacion_seleccionada: Habitacion, tipo_disp: str,
     for i, dispositivo in enumerate(lista_dispositivos):
         print(f"{i}.- {dispositivo}")
 
-    while True:
-        seleccion = input(f"Seleccione el **número** del {tipo_disp_nombre}: ").strip()
+    dispositivo_seleccionado = None
+    seleccion_valida = False
+
+    while not seleccion_valida:
+        seleccion = input(f"Seleccione el **número** del {tipo_disp_nombre} (o escriba 'cancelar'): ").strip()
+
+        if seleccion.lower() == 'cancelar':
+            return None, None
+
         if seleccion.isdigit():
             try:
                 indice = int(seleccion)
                 if 0 <= indice < len(lista_dispositivos):
-                    return lista_dispositivos[indice], tipo_disp_nombre
+                    dispositivo_seleccionado = lista_dispositivos[indice]
+                    seleccion_valida = True
                 else:
                     print(f"Número fuera de rango [0-{len(lista_dispositivos) - 1}].")
             except ValueError:
@@ -143,9 +161,13 @@ def seleccionar_dispositivo(habitacion_seleccionada: Habitacion, tipo_disp: str,
         else:
             print("Entrada no válida. Por favor, introduzca un número.")
 
+    return dispositivo_seleccionado, tipo_disp_nombre
+
 
 def gestionar_estado_dispositivo(lista_habitaciones):
-    """Opción 8: Permite encender, apagar, y ajustar nivel/temperatura (con manejo de errores)."""
+    """
+    Opción 9: Permite encender, apagar, y ajustar nivel/temperatura (con manejo de errores).
+    """
 
     habitacion_seleccionada = seleccionar_habitacion(lista_habitaciones, "gestionar dispositivos")
     if habitacion_seleccionada is None: return
@@ -160,7 +182,9 @@ def gestionar_estado_dispositivo(lista_habitaciones):
     )
     if dispositivo_obj is None: return
 
-    while True:
+    # Bucle de gestión de estado/nivel
+    gestionando = True
+    while gestionando:
         print(f"\n*** Dispositivo: **{dispositivo_obj}** ***")
         dispositivo_obj.obtener_estado()
         print("\nOpciones de gestión:")
@@ -178,31 +202,30 @@ def gestionar_estado_dispositivo(lista_habitaciones):
         opcion = input("Seleccione una opción (a-z): ").strip().lower()
 
         if opcion == 'z':
-            break
+            gestionando = False
+            continue
 
         if opcion == 'a':
             dispositivo_obj.encender()
         elif opcion == 'b':
             dispositivo_obj.apagar()
         elif opcion == 'c':
-            # Valor por defecto 0 pasa a la subclase, donde se gestiona si es 10 o 1.
-            # Se permite la entrada manual.
             paso_default = 10 if isinstance(dispositivo_obj, Bombilla) else 1
             try:
-                paso = int(input(f"Introduce el valor para aumentar (default: {paso_default}, 0 para usar default): ") or 0)
+                paso = int(
+                    input(f"Introduce el valor para aumentar (default: {paso_default}, 0 para usar default): ") or 0)
                 dispositivo_obj.aumentarIntensidad(paso)
-            except ValueError as e:  # Captura el error de umbral (Refactorización c)
+            except ValueError as e:
                 print(f" Operación fallida: {e}")
             except Exception as e:
                 print(f"Error de entrada: {e}")
         elif opcion == 'd':
-            # Valor por defecto 0 pasa a la subclase, donde se gestiona si es 10 o 1.
-            # Se permite la entrada manual.
             paso_default = 10 if isinstance(dispositivo_obj, Bombilla) else 1
             try:
-                paso = int(input(f"Introduce el valor para disminuir (default: {paso_default}, 0 para usar default): ") or 0)
+                paso = int(
+                    input(f"Introduce el valor para disminuir (default: {paso_default}, 0 para usar default): ") or 0)
                 dispositivo_obj.disminuirIntensidad(paso)
-            except ValueError as e:  # Captura el error de umbral (Refactorización c)
+            except ValueError as e:
                 print(f" Operación fallida: {e}")
             except Exception as e:
                 print(f" Error de entrada: {e}")
@@ -293,7 +316,10 @@ def gestionar_programador(lista_habitaciones):
     habitacion_seleccionada = seleccionar_habitacion(lista_habitaciones, "gestionar un programador")
     if habitacion_seleccionada is None: return
 
-    while True:
+    # Bucle de selección de dispositivo a programar
+    seleccionando_disp = True
+    dispositivo_obj = None
+    while seleccionando_disp:
         print(f"\nDispositivos programables en **{habitacion_seleccionada._tipo_habitacion}**:")
         print("1. Bombilla")
         print("2. Aire Acondicionado")
@@ -302,58 +328,69 @@ def gestionar_programador(lista_habitaciones):
         opcion_disp = input("Seleccione el tipo de dispositivo a programar (1/2/3): ").strip()
 
         if opcion_disp == '3':
-            return
+            seleccionando_disp = False
+            continue
 
         dispositivo_obj, tipo_disp_nombre = seleccionar_dispositivo(
             habitacion_seleccionada, opcion_disp, "programar"
         )
         if dispositivo_obj is None: continue
 
-        # Asignar/obtener el programador
-        programador = dispositivo_obj.asignar_programador()
+        seleccionando_disp = False
 
-        # Menú de programación
-        while True:
-            print(f"\nProgramando: **{dispositivo_obj}**")
-            print("a. Programar Encendido (Comienzo)")
-            print("b. Programar Apagado (Fin)")
-            print("c. Borrar Programación")
-            print("d. Mostrar Programación Actual")
-            print("e. Volver a selección de dispositivo")
-            opcion = input("Seleccione una opción (a-e): ").strip().lower()
+    if dispositivo_obj is None:
+        return
 
-            if opcion == 'e':
-                break
-            elif opcion == 'd':
-                programador.mostrar_programacion()
+    # Asignar/obtener el programador
+    programador = dispositivo_obj.asignar_programador()
+
+    # Menú de programación
+    gestionando_programador = True
+    while gestionando_programador:
+        print(f"\nProgramando: **{dispositivo_obj}**")
+        print("a. Programar Encendido (Comienzo)")
+        print("b. Programar Apagado (Fin)")
+        print("c. Borrar Programación")
+        print("d. Mostrar Programación Actual")
+        print("e. Volver a selección de dispositivo")
+        opcion = input("Seleccione una opción (a-e): ").strip().lower()
+
+        if opcion == 'e':
+            gestionando_programador = False
+            continue
+        elif opcion == 'd':
+            programador.mostrar_programacion()
+            continue
+
+        # Pide la información de tiempo para a, b, c
+        try:
+            dia = input("Día (ej. Lunes): ").strip()
+            # Asumiendo que Programador.getDiasSemana() está disponible
+            if dia.capitalize() not in Programador.getDiasSemana():
+                print(f"Día no válido. Días aceptados: {Programador.getDiasSemana()}")
+                continue
+            hora = int(input("Hora (0-23): "))
+            min = int(input("Minuto (0-59): "))
+            seg = int(input("Segundo (0-59): "))
+
+            # Asumiendo que Programador._validar_tiempo está disponible
+            if not Programador._validar_tiempo(hora, min, seg):
+                print("Los valores de hora, minuto o segundo están fuera de rango.")
                 continue
 
-            # Pide la información de tiempo para a, b, c
-            try:
-                dia = input("Día (ej. Lunes): ").strip()
-                if dia.capitalize() not in Programador.getDiasSemana():
-                    print(f"Día no válido. Días aceptados: {Programador.getDiasSemana()}")
-                    continue
-                hora = int(input("Hora (0-23): "))
-                min = int(input("Minuto (0-59): "))
-                seg = int(input("Segundo (0-59): "))
+            if opcion == 'a':
+                programador.comienzo(dia, hora, min, seg)
+            elif opcion == 'b':
+                programador.fin(dia, hora, min, seg)
+            elif opcion == 'c':
+                programador.borrar(dia, hora, min, seg)
+            else:
+                print("Opción no válida.")
+        except ValueError:
+            print("Error: Los valores de tiempo deben ser números enteros.")
+        except Exception as e:
+            print(f"Ocurrió un error: {e}")
 
-                if not Programador._validar_tiempo(hora, min, seg):
-                    print("Los valores de hora, minuto o segundo están fuera de rango.")
-                    continue
-
-                if opcion == 'a':
-                    programador.comienzo(dia, hora, min, seg)
-                elif opcion == 'b':
-                    programador.fin(dia, hora, min, seg)
-                elif opcion == 'c':
-                    programador.borrar(dia, hora, min, seg)
-                else:
-                    print("Opción no válida.")
-            except ValueError:
-                print("Error: Los valores de tiempo deben ser números enteros.")
-            except Exception as e:
-                print(f"Ocurrió un error: {e}")
 
 def guardar_log_habitacion(lista_habitaciones):
     """Opción 8: Pide el nombre de la habitación y el fichero para guardar el log."""
@@ -361,13 +398,12 @@ def guardar_log_habitacion(lista_habitaciones):
     if habitacion_seleccionada is None:
         return
 
-    # Se usa un nombre de fichero predeterminado para simplificar
     nombre_fichero = input("Ingrese el nombre del fichero para guardar el log (ej: log_domotica.txt): ")
     if not nombre_fichero:
         print("Nombre de fichero no puede estar vacío.")
         return
 
-    # Llama al Metodo implementado de ILogHistorico
+    # Llama al Metodo implementado de ILogHistorico (en Habitacion)
     habitacion_seleccionada.guardaLog(nombre_fichero)
 
 
@@ -379,7 +415,7 @@ def menu():
     condicionmenu = True
     while condicionmenu:
         mostrar_menu()
-        opcion = input(" Seleccione una opción (1-9): ").strip()
+        opcion = input(" Seleccione una opción (1-11): ").strip()
 
         if opcion == '1':
             crear_habitacion(lista_habitaciones)

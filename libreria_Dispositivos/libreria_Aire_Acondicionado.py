@@ -1,5 +1,4 @@
 from libreria_Dispositivos.libreria_Dispositivo import Dispositivo
-from typing import  Dict, Any
 class Aire(Dispositivo):
      _contador_aires = 0
      UMBRAL_MAX = 60
@@ -34,7 +33,7 @@ class Aire(Dispositivo):
          self._nivel_principal = nuevo_nivel
          print(f"Temperatura de '{self._nombre}' ajustada a {self._nivel_principal} ºC.")
 
-     def obtener_estado(self) -> Dict[str, Any]:
+     def obtener_estado(self):
          """Imprime el estado completo del aire y lo retorna como un diccionario."""
          diccionario_estado = {
              "nombre": self._nombre,

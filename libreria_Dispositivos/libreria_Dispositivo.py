@@ -1,6 +1,3 @@
-
-
-from typing import Dict, Any
 from abc import ABC, abstractmethod
 from libreria_Dispositivos.libreria_Programador import Programador
 
@@ -19,21 +16,21 @@ class Dispositivo(ABC):
         self._estado = estado
         # Este atributo será usado por las subclases para intensidad o temperatura
         self._nivel_principal = nivel_inicial
-        self._programador: Programador=None
+        self._programador=None
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self._nombre} ({self._id})"
 
     # Métodos de control básicos
     def encender(self):
         """Enciende el dispositivo."""
         self._estado = True
-        print(f"Dispositivo '{self._nombre}' encendido.")
+
 
     def apagar(self):
         """Apaga el dispositivo."""
         self._estado = False
-        print(f"Dispositivo '{self._nombre}' apagado.")
+
 
     # Métodos de ajuste de intensidad: AHORA SON ABSTRACTOS
     @abstractmethod
@@ -47,7 +44,7 @@ class Dispositivo(ABC):
         pass
 
     @abstractmethod
-    def obtener_estado(self) -> Dict[str, Any]:
+    def obtener_estado(self):
         """Retorna el estado completo del dispositivo."""
         pass
 
@@ -56,7 +53,6 @@ class Dispositivo(ABC):
         """Asigna o actualiza un objeto Programador a este dispositivo."""
         if self._programador is None:
             self._programador = Programador(self)
-            print(f"Programador asignado a '{self}'.")
         else:
             print(f"'{self}' ya tiene un programador asignado.")
         return self._programador

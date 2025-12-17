@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="paso 2">
-      <change afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Log_Historico.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Aire_Acondicionado.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Aire_Acondicionado.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Bombillas.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Bombillas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Dispositivo.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Dispositivo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/principal.py" beforeDir="false" afterPath="$PROJECT_DIR$/principal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Log_Historico.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Log_Historico.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Programador.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Programador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/principal.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +49,7 @@
     &quot;Python.principal.executor&quot;: &quot;Run&quot;,
     &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
@@ -56,8 +58,13 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject" />
+      <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject\libreria_Dispositivos" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject" />
+      <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject\.venv" />
     </key>
   </component>
   <component name="RunManager" selected="Python.principal">
@@ -182,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763816023492</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="paso 2">
+      <option name="closed" value="true" />
+      <created>1764506796852</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764506796852</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -1,5 +1,5 @@
 from libreria_Dispositivos.libreria_Dispositivo import Dispositivo
-from typing import Tuple,Dict, Any
+
 """
  Clase que representa una bombilla con estado (encendida/apagada),
  nivel de intensidad (0-100) y color RGB (tupla de 3 enteros 0-255).
@@ -9,7 +9,7 @@ class Bombilla(Dispositivo):
     _contador_bombillas = 0
     UMBRAL_MAX = 100
     UMBRAL_MIN = 0
-    def __init__(self,nombre_bombilla : str,estado: bool = True, nivel_intensidad: int = 100, color: Tuple[int, int, int] = (255, 255, 255)):
+    def __init__(self,nombre_bombilla : str,estado: bool = True, nivel_intensidad: int = 100, color: tuple = (255, 255, 255)):
         # Asignación de ID automático
         Bombilla._contador_bombillas += 1
         # Llama al constructor de la clase base, usando intensidad como nivel principal
@@ -48,7 +48,7 @@ class Bombilla(Dispositivo):
         self._color = (r, g, b)
         print(f"Color de '{self._nombre}' cambiado a RGB: {self._color}.")
 
-    def obtener_estado(self) -> Dict[str, Any]:
+    def obtener_estado(self) :
         """Imprime el estado completo de la bombilla y lo retorna como un diccionario."""
         diccionario_estado = {
             "nombre": self._nombre,

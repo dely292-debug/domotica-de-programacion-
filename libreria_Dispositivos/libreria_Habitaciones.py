@@ -1,7 +1,6 @@
 
 from libreria_Dispositivos.libreria_Bombillas import Bombilla
 from libreria_Dispositivos.libreria_Aire_Acondicionado  import Aire
-from typing import List
 from libreria_Dispositivos.libreria_Log_Historico import ILogHistorico
 import datetime
 
@@ -9,8 +8,8 @@ class Habitacion(ILogHistorico): # Ahora hereda de ILogHistorico
     """Contenedor para dispositivos (Bombillas y Aires)."""
     def __init__(self, tipo_habitacion):
         self._tipo_habitacion = tipo_habitacion
-        self._lista_bombillas: List[Bombilla] = []
-        self._lista_aires: List[Aire] = []
+        self._lista_bombillas = []
+        self._lista_aires= []
 
     def __str__(self):
         return self._tipo_habitacion

@@ -1,7 +1,4 @@
 import time
-from typing import List, Dict, Tuple, Any
-
-
 class Programador:
     """
     Simula la clase Programador para agendar acciones de ON/OFF
@@ -12,24 +9,24 @@ class Programador:
         4: "Viernes", 5: "Sábado", 6: "Domingo"
     }
 
-    def __init__(self, dispositivo_objetivo: Any):
+    def __init__(self, dispositivo_objetivo):
         # Almacena el objeto Bombilla o Aire al que debe programar
         self.dispositivo_objetivo = dispositivo_objetivo
         # (Dia, Hora, Minuto, Segundo): Accion ('ON' o 'OFF')
-        self.listaProgramacion: Dict[Tuple[str, int, int, int], str] = {}
+        self.listaProgramacion = {}
 
     @staticmethod
-    def _validar_tiempo(h, m, s) -> bool:
+    def _validar_tiempo(h, m, s) :
         """Función auxiliar para validar horas, minutos y segundos."""
         return 0 <= h <= 23 and 0 <= m <= 59 and 0 <= s <= 59
 
     @classmethod
-    def getDiasSemana(cls) -> List[str]:
+    def getDiasSemana(cls) :
         """Devuelve una lista con los nombres válidos de los días de la semana."""
         return list(cls._DIAS_SEMANA_MAP.values())
 
     @classmethod
-    def getHoraSistema(cls) -> str:
+    def getHoraSistema(cls) :
         """Devuelve la hora actual del sistema en formato: DiaDeLaSemana HH:MM:SS."""
         lt = time.localtime()
         dia = cls._DIAS_SEMANA_MAP.get(lt.tm_wday)
