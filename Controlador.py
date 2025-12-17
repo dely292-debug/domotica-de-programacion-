@@ -120,21 +120,33 @@ class ControladorDomotica:
             self.actualizar_interfaz()
 
     def crear_dispositivo(self):
+        # 1. Verificar habitación seleccionada
         h_idx = self.vista.comboHabitaciones.current()
         if h_idx == -1:
             messagebox.showwarning("Aviso", "Selecciona una habitación primero.")
             return
 
-        tipo = simpledialog.askinteger("Tipo", "1: Bombilla, 2: Aire", minvalue=1, maxvalue=2)
-        nom = simpledialog.askstring("Nombre", "Nombre dispositivo:")
-        if nom:
-            if tipo == 1:
-                self.habitaciones[h_idx].agregar_bombilla(nom)
-            else:
-                self.habitaciones[h_idx].agregar_aire(nom)
-            self.dibujar_paneles_dispositivos()  # Redibuja para mostrar el nuevo
-            self.actualizar_interfaz()
+        # 2. Obtener tipo de dispositivo
+        tipo = simpledialog.askinteger("Tipo de Dispositivo", "1: Bombilla\n2: Aire Acondicionado",
+                                       parent=self.vista, minvalue=1, maxvalue=2)
+        if tipo is None: return  # El usuario canceló
 
+        # 3. Obtener nombre del dispositivo
+        nom = simpledialog.askstring("Nombre", "¿Cómo se llama el dispositivo?", parent=self.vista)
+
+        # 4. Validar y añadir solo si tenemos el nombre
+        if nom and nom.strip():
+            hab = self.habitaciones[h_idx]
+            if tipo == 1:
+                hab.agregar_bombilla(nom.strip())
+            else:
+                hab.agregar_aire(nom.strip())
+
+            # 5. ACTUALIZACIÓN FINAL: Refrescamos todo el panel
+            self.dibujar_paneles_dispositivos()
+            self.actualizar_interfaz(f"Dispositivo '{nom}' añadido con éxito.")
+        else:
+            messagebox.showwarning("Error", "El nombre no puede estar vacío.")
     def ejecutar_log_historico(self):
         h_idx = self.vista.comboHabitaciones.current()
         if h_idx != -1:

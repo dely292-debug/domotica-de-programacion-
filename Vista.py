@@ -53,10 +53,11 @@ class VentanaPrincipal(tk.Tk):
         # Sub-frame Izquierdo: Bombillas
         self.columna_bombillas = tk.LabelFrame(self.contenedor_columnas, text="💡 BOMBILLAS", fg="blue")
         self.columna_bombillas.pack(side="left", fill="both", expand=True, padx=5)
-
+        self.columna_bombillas.config(minwidth=300, minheight=200)  # Evita que colapse a 0 píxeles
         # Sub-frame Derecho: Aires
         self.columna_aires = tk.LabelFrame(self.contenedor_columnas, text="❄️ AIRES ACONDICIONADOS", fg="red")
         self.columna_aires.pack(side="right", fill="both", expand=True, padx=5)
+        self.columna_aires.config(minwidth=300, minheight=200)
 
         # --- 6. BOTÓN SALIR ---
         self.botonSalir = tk.Button(self, text="Salir y Guardar Todo", height=2, bg="#eee")
