@@ -1,12 +1,11 @@
 import tkinter as tk
-from tkinter import scrolledtext, ttk, messagebox
-from tkinter import colorchooser
+from tkinter import scrolledtext, ttk
 
 class VentanaPrincipal(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Sistema Domótico Integral v3.0")
-        self.geometry("950x850") # Aumentamos un poco el ancho para las dos columnas
+        self.geometry("950x850")
 
         # --- 1. SECCIÓN CARGA ---
         frame_superior = tk.Frame(self)
@@ -30,11 +29,15 @@ class VentanaPrincipal(tk.Tk):
         self.botonNuevoDispositivo = tk.Button(frame_edicion, text="+ Añadir Dispositivo", bg="#e3f2fd")
         self.botonNuevoDispositivo.pack(side="left", padx=10, pady=5)
 
+        # Se define aquí para evitar errores de "AttributeError" en el Controlador
+        self.botonEliminarDispositivo = tk.Button(frame_edicion, text="- Eliminar Dispositivo", bg="#ffcdd2")
+        self.botonEliminarDispositivo.pack(side="left", padx=10, pady=5)
+
         # --- 3. SECCIÓN VISUALIZACIÓN (LOG DE TEXTO) ---
         self.cajaTextoInfHabitaciones = scrolledtext.ScrolledText(self, width=110, height=10)
         self.cajaTextoInfHabitaciones.pack(pady=10)
 
-        # --- 4. PANEL DE SELECCIÓN DE HABITACIÓN Y LOG TXT ---
+        # --- 4. PANEL DE SELECCIÓN DE HABITACIÓN ---
         frame_seleccion = tk.Frame(self)
         frame_seleccion.pack(pady=5, padx=20, fill="x")
 
@@ -45,19 +48,33 @@ class VentanaPrincipal(tk.Tk):
         self.botonGenerarLog = tk.Button(frame_seleccion, text="📑 Generar Log .txt", bg="#fff3cd")
         self.botonGenerarLog.pack(side="right", padx=5)
 
-        # --- 5. PANEL DE CONTROL DINÁMICO (DOS COLUMNAS) ---
-        # Este es el contenedor que el controlador vaciará y llenará
-        self.contenedor_columnas = tk.Frame(self)
-        self.contenedor_columnas.pack(pady=10, padx=20, fill="both", expand=True)
+        # --- 5. PANEL DE CONTROL DINÁMICO CON SCROLL ---
+        # Contenedor para el canvas y la scrollbar
+        self.frame_scroll_container = tk.Frame(self)
+        self.frame_scroll_container.pack(pady=10, padx=20, fill="both", expand=True)
 
-        # Sub-frame Izquierdo: Bombillas
+        self.canvas_dispositivos = tk.Canvas(self.frame_scroll_container, highlightthickness=0)
+        self.canvas_dispositivos.pack(side="left", fill="both", expand=True)
+
+        self.scrollbar_v = ttk.Scrollbar(self.frame_scroll_container, orient="vertical", command=self.canvas_dispositivos.yview)
+        self.scrollbar_v.pack(side="right", fill="y")
+
+        self.canvas_dispositivos.configure(yscrollcommand=self.scrollbar_v.set)
+
+        # Frame interno que contendrá las columnas
+        self.contenedor_columnas = tk.Frame(self.canvas_dispositivos)
+        self.canvas_window = self.canvas_dispositivos.create_window((0, 0), window=self.contenedor_columnas, anchor="nw")
+
+        # Configuración para que el scroll se adapte al contenido
+        self.contenedor_columnas.bind("<Configure>", lambda e: self.canvas_dispositivos.configure(scrollregion=self.canvas_dispositivos.bbox("all")))
+        self.canvas_dispositivos.bind("<Configure>", lambda e: self.canvas_dispositivos.itemconfig(self.canvas_window, width=e.width))
+
+        # Sub-frames para columnas
         self.columna_bombillas = tk.LabelFrame(self.contenedor_columnas, text="💡 BOMBILLAS", fg="blue")
         self.columna_bombillas.pack(side="left", fill="both", expand=True, padx=5)
-        self.columna_bombillas.config(minwidth=300, minheight=200)  # Evita que colapse a 0 píxeles
-        # Sub-frame Derecho: Aires
+
         self.columna_aires = tk.LabelFrame(self.contenedor_columnas, text="❄️ AIRES ACONDICIONADOS", fg="red")
         self.columna_aires.pack(side="right", fill="both", expand=True, padx=5)
-        self.columna_aires.config(minwidth=300, minheight=200)
 
         # --- 6. BOTÓN SALIR ---
         self.botonSalir = tk.Button(self, text="Salir y Guardar Todo", height=2, bg="#eee")

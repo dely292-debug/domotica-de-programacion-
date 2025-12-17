@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="paso 4">
+    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="paso 7">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controlador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Controlador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Vista.py" beforeDir="false" afterPath="$PROJECT_DIR$/Vista.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/habitaciones_data.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/habitaciones_data.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/habitaciones_data.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/habitaciones_data.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/libreria_Dispositivos/libreria_Habitaciones.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log_Dormitorio.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log_Dormitorio.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,26 +39,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.App.executor": "Run",
-    "Python.Controlador.executor": "Run",
-    "Python.Vista.executor": "Run",
-    "Python.__init__.executor": "Run",
-    "Python.libreria_Bombillas.executor": "Run",
-    "Python.libreria_Habitaciones.executor": "Run",
-    "Python.principal.executor": "Run",
-    "Python.prueba.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/UNIVERSIDAD 2025/PROGRAMACION/p1/PythonProject",
-    "settings.editor.selected.configurable": "editor.preferences.inline.completion"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.App.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Controlador.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Vista.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.libreria_Bombillas.executor&quot;: &quot;Run&quot;,
+    &quot;Python.libreria_Habitaciones.executor&quot;: &quot;Run&quot;,
+    &quot;Python.principal.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/UNIVERSIDAD 2025/PROGRAMACION/p1/PythonProject&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject" />

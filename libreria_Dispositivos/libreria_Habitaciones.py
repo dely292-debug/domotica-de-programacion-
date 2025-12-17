@@ -19,24 +19,26 @@ class Habitacion(ILogHistorico): # Ahora hereda de ILogHistorico
         self._lista_bombillas.append(nueva_bombilla)
         print(f"Bombilla '{nueva_bombilla}' ha sido añadida a '{self._tipo_habitacion}'.")
 
-    def eliminar_bombilla(self, bombilla_objetivo):
-        if bombilla_objetivo in self._lista_bombillas:
-            self._lista_bombillas.remove(bombilla_objetivo)
-            print(f"Bombilla: {bombilla_objetivo} ha sido eliminada de {self._tipo_habitacion}")
-        else:
-            print(f"Bombilla: {bombilla_objetivo} no se encuentra en {self._tipo_habitacion}")
+
+    def eliminar_bombilla(self, nombre):
+        for b in self._lista_bombillas:
+            if b._nombre == nombre:
+                self._lista_bombillas.remove(b)
+                return True
+        return False
 
     def agregar_aire(self, nombre_aire):
         nuevo_aire = Aire(nombre_aire)
         self._lista_aires.append(nuevo_aire)
         print(f"Aire:{nuevo_aire} ha sido añadido a {self._tipo_habitacion}")
 
-    def eliminar_aire(self, aire_objetivo):
-        if aire_objetivo in self._lista_aires:
-            self._lista_aires.remove(aire_objetivo)
-            print(f"Aire: {aire_objetivo} ha sido eliminado de {self._tipo_habitacion}")
-        else:
-            print(f"Aire : {aire_objetivo} no se encuentra en {self._tipo_habitacion}")
+
+    def eliminar_aire(self, nombre):
+        for aire in self._lista_aires:
+            if aire._nombre == nombre:
+                self._lista_aires.remove(aire)
+                return True
+        return False
 
     def mostrar_estado(self):
         total_bombillas = self._lista_bombillas
