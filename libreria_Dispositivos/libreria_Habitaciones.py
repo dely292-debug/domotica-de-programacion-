@@ -1,10 +1,9 @@
 
 from libreria_Dispositivos.libreria_Bombillas import Bombilla
 from libreria_Dispositivos.libreria_Aire_Acondicionado  import Aire
-from libreria_Dispositivos.libreria_Log_Historico import ILogHistorico
 import datetime
 
-class Habitacion(ILogHistorico): # Ahora hereda de ILogHistorico
+class Habitacion:
     """Contenedor para dispositivos (Bombillas y Aires)."""
     def __init__(self, tipo_habitacion):
         self._tipo_habitacion = tipo_habitacion
@@ -78,7 +77,7 @@ class Habitacion(ILogHistorico): # Ahora hereda de ILogHistorico
         try:
             fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            # Construcción del contenido
+            # Construcción eficiente del contenido
             lineas = [
                 f"\n*** LOG HISTÓRICO - {self._tipo_habitacion} ***",
                 f"FECHA/HORA: {fecha_actual}",
@@ -113,12 +112,12 @@ class Habitacion(ILogHistorico): # Ahora hereda de ILogHistorico
 
             lineas.append("-" * 50 + "\n")
 
-            # Escritura en fichero
+            # Escritura en fichero con UTF-8 para soportar caracteres especiales (º)
             with open(fichero, 'a', encoding='utf-8') as f:
                 f.write("\n".join(lineas))
 
         except (OSError, IOError) as e:
-            # Relanzamos como RuntimeError para unificar la interfaz de error de la clase
-            raise RuntimeError(f"Error crítico al escribir en el fichero de log '{fichero}': {e}")
+            # Propagamos el error para que la UI decida qué mostrar
+            raise RuntimeError(f"Error de acceso al archivo '{fichero}': {e}")
         except Exception as e:
-            raise RuntimeError(f"Error inesperado al generar el log de '{self._tipo_habitacion}': {e}")
+            raise RuntimeError(f"Fallo inesperado al generar log en '{self._tipo_habitacion}': {e}")

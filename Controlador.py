@@ -19,6 +19,8 @@ class ControladorDomotica:
         self.vista.botonEliminarDispositivo.config(command=self.abrir_ventana_eliminacion)
         self.vista.botonSalir.config(command=self.auto_guardar)
 
+        self.vista.botonVerLog.config(command=self.ejecutar_ver_log)
+
         self.vista.comboHabitaciones.bind("<<ComboboxSelected>>", self.dibujar_paneles_dispositivos)
         self.vista.protocol("WM_DELETE_WINDOW", self.auto_guardar)
 
@@ -210,9 +212,38 @@ class ControladorDomotica:
         self.guardar_en_disco()
 
     def ejecutar_log_historico(self):
-        idx = self.vista.comboHabitaciones.current()
-        if idx != -1:
-            hab = self.habitaciones[idx]
-            nom = simpledialog.askstring("Log", "Archivo:", initialvalue=f"log_{hab._tipo_habitacion}.txt",
-                                         parent=self.vista)
-            if nom: hab.guardaLog(nom)
+        """
+        Este es el metodo que llama el botón.
+        Aquí gestionamos qué hacer si la habitación lanza un error.
+        """
+        fichero = "log_Dormitorio.txt"
+        try:
+            # Llamamos al metodo de la habitación (que ahora lanza RuntimeError)
+            self.habitacion.guarda_log(fichero)
+
+            # Si quieres que el usuario sepa que funcionó, podrías usar un diálogo
+            # pero el metodo guarda_log ya no hace print por sí solo.
+            print(f"Éxito: Log guardado en {fichero}")
+
+        except RuntimeError as e:
+            # Aquí es donde capturamos el error generado en Habitacion.py
+            # Puedes enviarlo a la vista para que lo muestre en una etiqueta o ventana
+            self.vista.mostrar_error_en_interfaz(str(e))
+        except Exception as e:
+            # Error genérico por si ocurre algo no previsto
+            print(f"Error inesperado: {e}")
+
+    def mostrar_log_en_interfaz(self):
+        fichero = "log_Dormitorio.txt"
+        try:
+            # 1. Leer el contenido del archivo con la codificación correcta
+            with open(fichero, "r", encoding="utf-8") as f:
+                contenido = f.read()
+
+            # 2. Enviar el contenido a la Vista para que lo dibuje
+            self.vista.actualizar_area_texto_log(contenido)
+
+        except FileNotFoundError:
+            self.vista.mostrar_error_en_interfaz("El archivo de log aún no ha sido creado.")
+        except Exception as e:
+            self.vista.mostrar_error_en_interfaz(f"Error al leer el log: {e}")

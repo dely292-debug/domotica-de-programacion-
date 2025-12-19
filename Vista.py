@@ -36,6 +36,8 @@ class VentanaPrincipal(tk.Tk):
         self.botonEliminarDispositivo = tk.Button(frame_edicion, text="- Eliminar Dispositivo", bg="#ffcdd2")
         self.botonEliminarDispositivo.pack(side="left", padx=10, pady=5)
 
+
+
         # --- 3. LOG DE TEXTO ---
         self.cajaTextoInfHabitaciones = scrolledtext.ScrolledText(self, width=110, height=8)
         self.cajaTextoInfHabitaciones.pack(pady=10)
@@ -77,3 +79,42 @@ class VentanaPrincipal(tk.Tk):
         # --- 6. BOTÓN SALIR ---
         self.botonSalir = tk.Button(self, text="Salir y Guardar Todo", height=2, bg="#eee")
         self.botonSalir.pack(pady=10, fill="x", padx=20)
+
+    def actualizar_area_texto_log(self, texto):
+        # Suponiendo que tienes un widget de texto llamado 'self.area_log'
+        self.area_log.config(state="normal")  # Habilitar edición
+        self.area_log.delete("1.0", "end")  # Limpiar contenido previo
+        self.area_log.insert("1.0", texto)  # Insertar el nuevo log
+        self.area_log.config(state="disabled")  # Bloquear para que sea solo lectura
+
+    def ejecutar_ver_log(self):
+        """Lee el archivo y pide a la vista que abra la ventana de lectura."""
+        fichero = "log_Dormitorio.txt"
+        try:
+            # Intentamos leer el archivo
+            with open(fichero, "r", encoding="utf-8") as f:
+                contenido = f.read()
+
+            # Si hay contenido, abrimos la ventana
+            self.vista.mostrar_ventana_log(contenido)
+
+        except FileNotFoundError:
+            # En lugar de print, podrías usar un messagebox de la vista
+            from tkinter import messagebox
+            messagebox.showwarning("Archivo no encontrado", "Aún no se ha generado ningún log histórico.")
+        except Exception as e:
+            raise RuntimeError(f"No se pudo leer el historial: {e}")
+
+    def mostrar_ventana_log(self, contenido_log):
+        """Crea una ventana emergente para visualizar el historial."""
+        ventana_log = tk.Toplevel(self.root)  # 'self.root' o como se llame tu ventana principal
+        ventana_log.title("Historial de Estados - Log")
+        ventana_log.geometry("600x400")
+
+        # Widget de texto con scroll integrado
+        area_texto = scrolledtext.ScrolledText(ventana_log, wrap=tk.WORD, font=("Consolas", 10))
+        area_texto.pack(expand=True, fill='both', padx=10, pady=10)
+
+        # Insertar el texto y bloquear edición
+        area_texto.insert(tk.INSERT, contenido_log)
+        area_texto.config(state=tk.DISABLED)
