@@ -12,14 +12,18 @@ class VentanaPrincipal(tk.Tk):
         frame_superior.pack(pady=10, fill="x")
 
         tk.Label(frame_superior, text="Fichero:").pack(side="left", padx=5)
-        self.entradaNombreFichero = tk.Entry(frame_superior, width=20)
+        self.entradaNombreFichero = tk.Entry(frame_superior, width=40)
         self.entradaNombreFichero.insert(0, "habitaciones_data.pkl")
         self.entradaNombreFichero.pack(side="left", padx=5)
 
-        self.botonCargarHabitaciones = tk.Button(frame_superior, text="Cargar Datos")
+        # Botón para buscar archivos en Windows
+        self.botonExaminar = tk.Button(frame_superior, text="📁 Examinar", bg="#f5f5f5")
+        self.botonExaminar.pack(side="left", padx=5)
+
+        self.botonCargarHabitaciones = tk.Button(frame_superior, text="Cargar Datos", bg="#dcedc8")
         self.botonCargarHabitaciones.pack(side="left", padx=5)
 
-        # --- 2. SECCIÓN EDICIÓN ---
+        # --- 2. SECCIÓN GESTIÓN (Estructura) ---
         frame_edicion = tk.LabelFrame(self, text="Gestión de Estructura")
         frame_edicion.pack(pady=5, padx=20, fill="x")
 
@@ -29,47 +33,41 @@ class VentanaPrincipal(tk.Tk):
         self.botonNuevoDispositivo = tk.Button(frame_edicion, text="+ Añadir Dispositivo", bg="#e3f2fd")
         self.botonNuevoDispositivo.pack(side="left", padx=10, pady=5)
 
-        # Se define aquí para evitar errores de "AttributeError" en el Controlador
         self.botonEliminarDispositivo = tk.Button(frame_edicion, text="- Eliminar Dispositivo", bg="#ffcdd2")
         self.botonEliminarDispositivo.pack(side="left", padx=10, pady=5)
 
-        # --- 3. SECCIÓN VISUALIZACIÓN (LOG DE TEXTO) ---
-        self.cajaTextoInfHabitaciones = scrolledtext.ScrolledText(self, width=110, height=10)
+        # --- 3. LOG DE TEXTO ---
+        self.cajaTextoInfHabitaciones = scrolledtext.ScrolledText(self, width=110, height=8)
         self.cajaTextoInfHabitaciones.pack(pady=10)
 
-        # --- 4. PANEL DE SELECCIÓN DE HABITACIÓN ---
+        # --- 4. PANEL SELECCIÓN ---
         frame_seleccion = tk.Frame(self)
         frame_seleccion.pack(pady=5, padx=20, fill="x")
 
-        tk.Label(frame_seleccion, text="Seleccione Habitación para controlar:").pack(side="left", padx=5)
+        tk.Label(frame_seleccion, text="Seleccione Habitación:").pack(side="left", padx=5)
         self.comboHabitaciones = ttk.Combobox(frame_seleccion, state="readonly", width=30)
         self.comboHabitaciones.pack(side="left", padx=5)
 
         self.botonGenerarLog = tk.Button(frame_seleccion, text="📑 Generar Log .txt", bg="#fff3cd")
         self.botonGenerarLog.pack(side="right", padx=5)
 
-        # --- 5. PANEL DE CONTROL DINÁMICO CON SCROLL ---
-        # Contenedor para el canvas y la scrollbar
+        # --- 5. PANEL DINÁMICO CON SCROLL ---
         self.frame_scroll_container = tk.Frame(self)
         self.frame_scroll_container.pack(pady=10, padx=20, fill="both", expand=True)
 
-        self.canvas_dispositivos = tk.Canvas(self.frame_scroll_container, highlightthickness=0)
-        self.canvas_dispositivos.pack(side="left", fill="both", expand=True)
+        self.canvas_scroll = tk.Canvas(self.frame_scroll_container, highlightthickness=0)
+        self.canvas_scroll.pack(side="left", fill="both", expand=True)
 
-        self.scrollbar_v = ttk.Scrollbar(self.frame_scroll_container, orient="vertical", command=self.canvas_dispositivos.yview)
+        self.scrollbar_v = ttk.Scrollbar(self.frame_scroll_container, orient="vertical", command=self.canvas_scroll.yview)
         self.scrollbar_v.pack(side="right", fill="y")
+        self.canvas_scroll.configure(yscrollcommand=self.scrollbar_v.set)
 
-        self.canvas_dispositivos.configure(yscrollcommand=self.scrollbar_v.set)
+        self.contenedor_columnas = tk.Frame(self.canvas_scroll)
+        self.canvas_window = self.canvas_scroll.create_window((0, 0), window=self.contenedor_columnas, anchor="nw")
 
-        # Frame interno que contendrá las columnas
-        self.contenedor_columnas = tk.Frame(self.canvas_dispositivos)
-        self.canvas_window = self.canvas_dispositivos.create_window((0, 0), window=self.contenedor_columnas, anchor="nw")
+        self.contenedor_columnas.bind("<Configure>", lambda e: self.canvas_scroll.configure(scrollregion=self.canvas_scroll.bbox("all")))
+        self.canvas_scroll.bind("<Configure>", lambda e: self.canvas_scroll.itemconfig(self.canvas_window, width=e.width))
 
-        # Configuración para que el scroll se adapte al contenido
-        self.contenedor_columnas.bind("<Configure>", lambda e: self.canvas_dispositivos.configure(scrollregion=self.canvas_dispositivos.bbox("all")))
-        self.canvas_dispositivos.bind("<Configure>", lambda e: self.canvas_dispositivos.itemconfig(self.canvas_window, width=e.width))
-
-        # Sub-frames para columnas
         self.columna_bombillas = tk.LabelFrame(self.contenedor_columnas, text="💡 BOMBILLAS", fg="blue")
         self.columna_bombillas.pack(side="left", fill="both", expand=True, padx=5)
 

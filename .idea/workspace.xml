@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="domotica 2" />
+    <list default="true" id="269e9cab-6c20-4ff0-b4f7-d0bd166150a7" name="Changes" comment="domotica 2">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,10 +22,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;djg00003&quot;
+  }
+}</component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/dely292-debug/domotica-de-programacion-.git",
-    "accountId": "4a378ac3-c8bf-4133-8c1f-9a6361d91d1f"
+    "accountId": "d6f9cf2d-3a50-43c7-ab90-f5a622fcf310"
   }
 }]]></component>
   <component name="HighlightingSettingsPerFile">
@@ -37,26 +45,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.App.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Controlador.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Vista.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__init__.executor&quot;: &quot;Run&quot;,
-    &quot;Python.libreria_Bombillas.executor&quot;: &quot;Run&quot;,
-    &quot;Python.libreria_Habitaciones.executor&quot;: &quot;Run&quot;,
-    &quot;Python.principal.executor&quot;: &quot;Run&quot;,
-    &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/UNIVERSIDAD 2025/PROGRAMACION/p1/PythonProject&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.App.executor": "Run",
+    "Python.Controlador.executor": "Run",
+    "Python.Vista.executor": "Run",
+    "Python.__init__.executor": "Run",
+    "Python.libreria_Bombillas.executor": "Run",
+    "Python.libreria_Habitaciones.executor": "Run",
+    "Python.principal.executor": "Run",
+    "Python.prueba.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/UNIVERSIDAD 2025/PROGRAMACION/p1/PythonProject",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\UNIVERSIDAD 2025\PROGRAMACION\p1\PythonProject" />
@@ -218,7 +226,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765992478343</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="domotica 2">
+      <option name="closed" value="true" />
+      <created>1765992538684</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1765992538684</updated>
+    </task>
+    <task id="LOCAL-00016" summary="domotica 2">
+      <option name="closed" value="true" />
+      <created>1766147667211</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1766147667211</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

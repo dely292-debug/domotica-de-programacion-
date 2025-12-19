@@ -67,44 +67,58 @@ class Habitacion(ILogHistorico): # Ahora hereda de ILogHistorico
         else:
             print("No hay Aires Acondicionados instalados.")
 
-    def guardaLog(self, fichero: str):
+    def guarda_log(self, fichero: str):
         """
         Almacena la fecha actual y el estado de todos los dispositivos
         de la habitación en el fichero especificado.
+
+        Lanza:
+            RuntimeError: Si ocurre un error al escribir o procesar el log.
         """
         try:
-            # Obtener la fecha y hora actual
             fecha_actual = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            # Crear el contenido del log
-            contenido = f"\n*** LOG HISTÓRICO - {self._tipo_habitacion} ***\n"
-            contenido += f"FECHA/HORA: {fecha_actual}\n"
-            contenido += "-" * 50 + "\n"
+            # Construcción del contenido
+            lineas = [
+                f"\n*** LOG HISTÓRICO - {self._tipo_habitacion} ***",
+                f"FECHA/HORA: {fecha_actual}",
+                "-" * 50
+            ]
 
-            # Recopilar estado de bombillas
+            # Estado de bombillas
             if self._lista_bombillas:
-                contenido += f"Bombillas ({len(self._lista_bombillas)}):\n"
+                lineas.append(f"Bombillas ({len(self._lista_bombillas)}):")
                 for b in self._lista_bombillas:
                     estado = b.obtener_estado()
-                    contenido += f"  - {estado['nombre']} (ID: {b._id}): Estado={'ON' if estado['estado'] else 'OFF'}, Intensidad={estado['intensidad']}, Color={estado['color']}\n"
+                    lineas.append(
+                        f"  - {estado['nombre']} (ID: {b._id}): "
+                        f"Estado={'ON' if estado['estado'] else 'OFF'}, "
+                        f"Intensidad={estado['intensidad']}, Color={estado['color']}"
+                    )
             else:
-                contenido += "Bombillas: Ninguna instalada.\n"
+                lineas.append("Bombillas: Ninguna instalada.")
 
-            # Recopilar estado de aires
+            # Estado de aires
             if self._lista_aires:
-                contenido += f"\nAires Acondicionados ({len(self._lista_aires)}):\n"
+                lineas.append(f"\nAires Acondicionados ({len(self._lista_aires)}):")
                 for a in self._lista_aires:
                     estado = a.obtener_estado()
-                    contenido += f"  - {estado['nombre']} (ID: {a._id}): Estado={'ON' if estado['estado'] else 'OFF'}, Temperatura={estado['temperatura']}ºC\n"
+                    lineas.append(
+                        f"  - {estado['nombre']} (ID: {a._id}): "
+                        f"Estado={'ON' if estado['estado'] else 'OFF'}, "
+                        f"Temperatura={estado['temperatura']}ºC"
+                    )
             else:
-                contenido += "\nAires Acondicionados: Ninguno instalado.\n"
+                lineas.append("\nAires Acondicionados: Ninguno instalado.")
 
-            # Escribir en el fichero (modo 'a' para append)
-            with open(fichero, 'a') as f:
-                f.write(contenido)
-                f.write("-" * 50 + "\n")
+            lineas.append("-" * 50 + "\n")
 
-            print(f" [LOG] Estado de '{self._tipo_habitacion}' guardado con éxito en '{fichero}'.")
+            # Escritura en fichero
+            with open(fichero, 'a', encoding='utf-8') as f:
+                f.write("\n".join(lineas))
 
+        except (OSError, IOError) as e:
+            # Relanzamos como RuntimeError para unificar la interfaz de error de la clase
+            raise RuntimeError(f"Error crítico al escribir en el fichero de log '{fichero}': {e}")
         except Exception as e:
-            print(f" [LOG ERROR] Error al guardar el log de '{self._tipo_habitacion}': {e}")
+            raise RuntimeError(f"Error inesperado al generar el log de '{self._tipo_habitacion}': {e}")

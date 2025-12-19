@@ -20,7 +20,7 @@ class Aire(Dispositivo):
              raise ValueError(
                  f"Error: La temperatura del aire no puede superar {self.UMBRAL_MAX}ºC. Intento: {nuevo_nivel}")
          self._nivel_principal = nuevo_nivel
-         print(f"Temperatura de '{self._nombre}' ajustada a {self._nivel_principal} ºC.")
+
 
      def disminuirIntensidad(self, paso: int = 0):
          """Disminuye la temperatura (Intensidad en el contexto de la base). Lanza ValueError si supera el umbral."""
@@ -31,7 +31,7 @@ class Aire(Dispositivo):
              raise ValueError(
                  f"Error: La temperatura del aire no puede ser inferior a {self.UMBRAL_MIN}ºC. Intento: {nuevo_nivel}")
          self._nivel_principal = nuevo_nivel
-         print(f"Temperatura de '{self._nombre}' ajustada a {self._nivel_principal} ºC.")
+
 
      def obtener_estado(self):
          """Imprime el estado completo del aire y lo retorna como un diccionario."""

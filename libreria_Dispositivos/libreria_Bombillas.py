@@ -27,7 +27,7 @@ class Bombilla(Dispositivo):
             raise ValueError(
                 f"Error: La intensidad de la bombilla no puede superar {self.UMBRAL_MAX}. Intento: {nuevo_nivel}")
         self._nivel_principal = nuevo_nivel
-        print(f"Intensidad de '{self._nombre}' aumentada a {self._nivel_principal}.")
+
 
     def disminuirIntensidad(self, paso: int = 0):
         """Disminuye la intensidad. Lanza ValueError si supera el umbral."""
@@ -38,7 +38,7 @@ class Bombilla(Dispositivo):
             raise ValueError(
                 f"Error: La intensidad de la bombilla no puede ser inferior a {self.UMBRAL_MIN}. Intento: {nuevo_nivel}")
         self._nivel_principal = nuevo_nivel
-        print(f"Intensidad de '{self._nombre}' disminuida a {self._nivel_principal}.")
+
 
     # Metodo de ajuste de color (setter no interactivo)
     def set_color(self, r: int, g: int, b: int):
@@ -46,7 +46,7 @@ class Bombilla(Dispositivo):
         if not (0 <= r <= 255 and 0 <= g <= 255 and 0 <= b <= 255):
              raise ValueError("Error: Todos los valores RGB deben estar entre 0 y 255.")
         self._color = (r, g, b)
-        print(f"Color de '{self._nombre}' cambiado a RGB: {self._color}.")
+
 
     def obtener_estado(self) :
         """Imprime el estado completo de la bombilla y lo retorna como un diccionario."""
@@ -57,7 +57,7 @@ class Bombilla(Dispositivo):
             "intensidad": self._nivel_principal
         }
         estado_str = "Encendida" if self._estado else "Apagada"
-        print(f"  Estado de {self._nombre}: {estado_str}, Intensidad: {self._nivel_principal}, Color: {self._color}")
+
         return diccionario_estado
 
 
